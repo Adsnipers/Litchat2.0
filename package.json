@@ -1,0 +1,30 @@
+{
+  "name": "litchat2.0",
+  "version": "0.0.0",
+  "description": "Anonymous Public Chatroom",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adsnipers/Litchat2.0.git"
+  },
+  "keywords": [
+    "messenger",
+    "messages",
+    "instant",
+    "messager"
+  ],
+  "author": "Adsnipers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adsnipers/Litchat2.0/issues"
+  },
+  "homepage": "https://github.com/Adsnipers/Litchat2.0#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}
