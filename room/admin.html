@@ -25,11 +25,11 @@
           var socket = io();
           $('form').submit(function(e){
             e.preventDefault(); // prevents page reloading
-            socket.emit('main', $('#m').val());
+            socket.emit('admin', $('#m').val());
             $('#m').val('');
             return false;
           });
-          socket.on('main', function(msg){
+          socket.on('admin', function(msg){
             $('#messages').append($('<li>').text(msg));
           });
         });

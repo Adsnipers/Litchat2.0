@@ -6,23 +6,36 @@ var port = process.env.PORT || 3000;
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
+app.get('/admin', function (req, res) {
+  res.sendFile(__dirname + '/room/admin.html');
+})
 
 io.on('connection', function (socket) {
-  io.emit('chat message', 'A user has connected');
+  io.emit('main', 'A user has connected');
   socket.on('disconnect', () => {
-    io.emit('chat message', 'A user has disconnected');
+    io.emit('main', 'A user has disconnected');
   })
-  socket.on('chat message', function (msg) {
+  socket.on('main', function (msg) {
+      io.emit('main', msg);
+  });
+});
+
+io.on('connection', function (socket) {
+  io.emit('admin', 'A user has connected');
+  socket.on('disconnect', () => {
+    io.emit('admin', 'A user has disconnected');
+  })
+  socket.on('admin', function (msg) {
     if (msg == '/stop') {
-      io.emit('chat message', 'HTTP SHUTDOWN COMMAND RECIEVED, SERVER SHUTTING DOWN')
-      socket.disconnect();
+      socket.to('main').to('admin').emit('ADMIN SHUTDOWN COMMAND RECIEVED. LITCHAT SERVER SHUTTING DOWN')
+      process.exit(0);
     } else {
-      io.emit('chat message', msg);
+      io.emit('admin', msg);
     }
   });
 });
 
 
 http.listen(port, function () {
-  console.log('listening on *:' + port);
+  console.log('listening on http://localhost:' + port);
 });
