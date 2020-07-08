@@ -3,20 +3,26 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-io.on('connection', function(socket){
-    io.emit('chat message', 'A user has connected');
-    socket.on('disconnect', () => {
-        io.emit('chat message', 'A user has disconnected');
-    })
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+io.on('connection', function (socket) {
+  io.emit('chat message', 'A user has connected');
+  socket.on('disconnect', () => {
+    io.emit('chat message', 'A user has disconnected');
+  })
+  socket.on('chat message', function (msg) {
+    if (msg == '/stop') {
+      io.emit('chat message', 'HTTP SHUTDOWN COMMAND RECIEVED, SERVER SHUTTING DOWN')
+      socket.disconnect();
+    } else {
+      io.emit('chat message', msg);
+    }
   });
 });
 
-http.listen(port, function(){
+
+http.listen(port, function () {
   console.log('listening on *:' + port);
 });
