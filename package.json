@@ -25,6 +25,6 @@
   "homepage": "https://github.com/Adsnipers/Litchat2.0#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^4.4.0"
+    "socket.io": "^4.5.0"
   }
 }
